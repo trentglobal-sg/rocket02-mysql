@@ -11,6 +11,14 @@ create table parents (
     last_name varchar(45) default ''
 ) engine = innodb; 
 
+-- show all tables
+show tables;
+
+-- insert one parent
+INSERT INTO parents (first_name, last_name) VALUES ("Ah Kow", "Tan");
+
+-- show all parents
+SELECT * FROM parents;
 
 -- create the table without foreign key
 create table students (
@@ -20,6 +28,7 @@ create table students (
     swimming_level tinyint,
     dob date
 ) engine = innodb;
+
 
 -- add a new columnm
 alter table students add column parent_id int unsigned not null;
@@ -31,7 +40,18 @@ alter table students
     on delete cascade
     on update restrict;
 
+INSERT INTO students (first_name, last_name, swimming_level, dob, parent_id)
+    values ("Ah Mew", "Tan", 1, "2020-06-08", 1);
 
+INSERT INTO students (first_name, last_name, swimming_level, dob, parent_id)
+values ("Jon", "Snow", 1, "2020-06-08", 199);
 
+alter table students add column gender varchar(2) not null;
 
+alter table students rename column dob to date_of_birth; 
 
+alter table students modify column swimming_level tinyint unsigned not null default 0;
+
+alter table students drop column gender;
+
+drop table students;
