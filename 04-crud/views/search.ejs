@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Search</h1>
+        <form method="GET">
+            <div>
+                <label class="form-label">
+                    Food Name
+                </label>
+                <input class="form-control" type="text" name="foodName" 
+                    value="<%= values.foodName %>"
+                
+                />
+            </div>
+            <div>
+                <label>Meal Type:</label>
+                <input type="radio" name="meal" value="breakfast" id="breakfast"
+                    <%= values.meal?.toLowerCase()=="breakfast" ? "checked" : "" %>
+                />
+                <label for="breakfast">Breakfast</label>
+
+                <input type="radio" name="meal" value="lunch" id="lunch"
+                    <%= values.meal?.toLowerCase()=="lunch" ? "checked" : "" %>
+                />
+                <label for="lunch">Lunch</label>
+
+                <input type="radio" name="meal" value="dinner" id="dinner"
+                    <%= values.meal?.toLowerCase()=="dinner" ? "checked" : "" %>
+                />
+                <label for="dinner">Dinner</label>
+
+                <input type="radio" name="meal" value="snack" id="snack"
+                     <%= values.meal?.toLowerCase()=="snack" ? "checked" : "" %>
+                />
+                <label for="dinner">Snack</label>
+            </div>
+            <div>
+                <label class="form-label">Min Calories</label>
+                <input class="form-control" type="number" name="minCalories"
+                    value="<%= values.minCalories %>"
+                />
+            </div>
+            <div>
+                <label class="form-label">Max Calories</label>
+                <input class="form-control" type="number" name="maxCalories"
+                    value="<%= values.maxCalories %>"
+                />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary mt-2" />
+        </form>
+
+        <h1>Search Results</h1>
+        <%- include("food_entries_table") %>
+    </div>
+</body>
+
+</html>

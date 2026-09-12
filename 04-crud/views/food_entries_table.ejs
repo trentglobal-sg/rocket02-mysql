@@ -1,0 +1,42 @@
+  <table class="table">
+      <thead>
+        <tr>
+          <th>Recorded When</th>
+          <th>Food Name</th>
+          <th>Calories</th>
+          <th>Meal</th>
+          <th>Tags</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let food of results) { %>
+          <tr>
+            <td>
+              <%= food.dateTime.toISOString() %>
+            </td>
+            <td>
+              <%= food.foodName %>
+            </td>
+            <td>
+              <%= food.calories %>
+            </td>
+            <td>
+              <%= food.meal %>
+            </td>
+            <td><%- food.tags.map(t=> {
+                return `<span class="badge text-bg-primary">${t}</span>`
+                }) %></td>
+            <td>
+
+              <a class="btn btn-success btn-sm" href="/edit_food_entry/<%= food.id %>">Edit</a>
+
+              <a class="btn btn-danger btn-sm" href="/confirm_delete_food_entry/<%= food.id %>">Delete</a>
+
+
+
+            </td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>

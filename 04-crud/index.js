@@ -27,8 +27,6 @@ const dbConfig = {
     port: process.env.DB_PORT
 }
 
-console.log(dbConfig);
-
 const dbConnection = mysql2.createPool(dbConfig);
 
 // a dynamic web app, like the one here
@@ -39,6 +37,45 @@ app.get('/', function(req,res){
         name: "Tan Ah Kow"
     });
 })
+
+
+app.get('/search/food_entries', async function(req,res){
+
+    const { foodName, meal, minCalories, maxCalories} = req.query;
+
+    // implement a query builder pattern
+    let query = "SELECT * FROM food_entries WHERE 1";
+    const bindings = [];
+
+    if (foodName) {
+        query +=" AND foodName LIKE ?";
+        bindings.push("%"+foodName+"%")
+    }
+
+    if (meal) {
+        query += " AND meal LIKE ?";
+        bindings.push("%"+meal+"%");
+    }
+
+    if (minCalories) {
+        query += " AND calories >= ?";
+        bindings.push(minCalories);
+    }
+
+    if (maxCalories) {
+        query += " AND calories <= ?";
+        bindings.push(maxCalories);
+    }
+
+    console.log(query);
+    const [rows] = await dbConnection.execute(query, bindings);
+
+    res.render('search', {
+        results: rows,
+        values: req.query
+    });
+})
+
 
 app.get('/food_entries', async function(req,res){
     // array destructuring
@@ -109,6 +146,9 @@ app.get('/edit_food_entry/:id', async function(req,res){
 })
 
 app.post('/edit_food_entry/:id', async function(req,res){
+  
+    const {foodName, calories, meal, tags, servingSize, unit} = req.body;
+
     const foodEntryId = req.params.id;
     const sql = `UPDATE food_entries SET 
                     foodName = ?,
@@ -120,12 +160,12 @@ app.post('/edit_food_entry/:id', async function(req,res){
                 WHERE id = ?
     `
     await dbConnection.execute(sql, [
-        req.body.foodName,
-        req.body.calories,
-        req.body.meal,
-        JSON.stringify(req.body.tags),
-        req.body.servingSize,
-        req.body.unit,
+        foodName,
+        calories,
+        meal,
+        JSON.stringify(tags),
+        servingSize,
+        unit,
         foodEntryId
     ]);
 
