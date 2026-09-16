@@ -26,24 +26,19 @@
             </div>
             <div>
                 <label>Meal Type:</label>
-                <input type="radio" name="meal" value="breakfast" id="breakfast" />
-                <label for="breakfast">Breakfast</label>
-
-                <input type="radio" name="meal" value="lunch" id="lunch" />
-                <label for="lunch">Lunch</label>
-
-                <input type="radio" name="meal" value="dinner" id="dinner" />
-                <label for="dinner">Dinner</label>
-
-                <input type="radio" name="meal" value="snack" id="snack" />
-                <label for="dinner">Snack</label>
+                <% for (let m of meals) { %>
+                    <input type="radio" name="meal_id" value="<%= m.id %>" id="meal-<%=m.id %>" />
+                    <label for="meal-<%=m.id %>"><%= m.name %></label>
+                <% } %>
+               
             </div>
             <div>
                 <label class="form-label">Tags</label>
-                <input type="checkbox" name="tags[]" value="healthy" /><label>Healthy</label>
-                <input type="checkbox" name="tags[]" value="vegan" /><label>Vegan</label>
-                <input type="checkbox" name="tags[]" value="gluten-free" /><label>Gluten Free</label>
-                <input type="checkbox" name="tags[]" value="organic" /><label>Organic</label>
+
+                <% for (let t of tags) { %>
+                    <input type="checkbox" name="tags[]" value="<%= t.id %>" /><label><%= t.name %></label>
+                <% } %>
+
             </div>
             <div>
                 <label class="form-label">Serving Size</label>

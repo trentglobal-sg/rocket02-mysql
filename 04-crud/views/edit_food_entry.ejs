@@ -26,33 +26,18 @@
             </div>
             <div>
                 <label>Meal Type:</label>
-                <input type="radio" 
-                    name="meal" 
-                    value="breakfast" 
-                    id="breakfast" 
-                    <% if (foodEntry.meal.toLowerCase() == "breakfast") { %>
-                        checked
-                    <% } %>
-                />
-                <label for="breakfast">Breakfast</label>
+                <% for (let m of meals) {%>
+                    <input type="radio" 
+                        name="meal_id" 
+                        value="<%= m.id %>" 
+                        id="meal-<%= m.id %>" 
+                        <% if (foodEntry.meal_id == m.id) { %>
+                            checked
+                        <% } %>
+                    />
+                    <label for="meal-<%= m.id %>"><%= m.name %></label>
+                <% } %>
 
-                <input type="radio" 
-                    name="meal" 
-                    value="lunch" 
-                    id="lunch"
-                    <%= foodEntry.meal.toLowerCase() == "lunch" ? "checked" : "" %>
-                />
-                <label for="lunch">Lunch</label>
-
-                <input type="radio" name="meal" value="dinner" id="dinner" 
-                    <%= foodEntry.meal.toLowerCase() == "dinner" ? "checked" : "" %>
-                />
-                <label for="dinner">Dinner</label>
-
-                <input type="radio" name="meal" value="snack" id="snack" 
-                    <%= foodEntry.meal.toLowerCase() == "snack" ? "checked" : "" %>
-                />
-                <label for="snack">Snack</label>
             <div>
                 <label class="form-label">Tags</label>
                 <input type="checkbox" name="tags[]" value="healthy" 

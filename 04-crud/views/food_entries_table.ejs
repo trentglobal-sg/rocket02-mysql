@@ -22,9 +22,9 @@
               <%= food.calories %>
             </td>
             <td>
-              <%= food.meal %>
+              <%= food.meal_name %>
             </td>
-            <td><%- food.tags.map(t=> {
+            <td><%- food.tags?.split(',').map(t=> {
                 return `<span class="badge text-bg-primary">${t}</span>`
                 }) %></td>
             <td>
